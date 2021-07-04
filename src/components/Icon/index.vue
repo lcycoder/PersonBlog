@@ -21,7 +21,6 @@ const classMap = {
   arrowDown: "iconiconfonticonfonti2",
   empty: "iconempty",
   chat: "iconliuyan",
-  chat2: "iconliuyan2",
  
 
 };

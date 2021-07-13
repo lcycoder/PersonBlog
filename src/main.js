@@ -36,6 +36,8 @@ import "./api/banner";
 // window.showMessage = showMessage;
 // showMessage("asdfasdf", "success");
 
+import vLoading from './/directives/v-loading'
+Vue.directive('loading', vLoading)
 import showMessage from "./utils/showMessage";
 Vue.prototype.$showMessage = showMessage;
 new Vue({

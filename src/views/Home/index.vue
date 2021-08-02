@@ -1,20 +1,29 @@
 <template>
-  <div v-loading="isLoading" class="home-container" ref="container">
-    <ul class="carousel-container" :style="{marginTop}">
+  <div
+    v-loading="isLoading"
+    class="home-container"
+    ref="container"
+    @wheel="handleWheel"
+  >
+    <ul
+      class="carousel-container"
+      :style="{ marginTop }"
+      @transitionend="handleTransitionEnd"
+    >
       <li v-for="item in banners" :key="item.id">
-        <CarouselItem :data="item"/>
+        <CarouselItem :carousel="item" /> 
       </li>
     </ul>
-    <div class="icon icon-up" v-show="index>0" @click="switchTo(index-1)">
+    <div class="icon icon-up" v-show="index > 0" @click="switchTo(index - 1)">
       <Icon type="arrowUp"></Icon>
     </div>
-    <div class="icon icon-down" v-show="index<2" @click="switchTo(index+1)">
-      <Icon type="arrowDown" ></Icon>
+    <div class="icon icon-down" v-show="index < 2" @click="switchTo(index + 1)">
+      <Icon type="arrowDown"></Icon>
     </div>
-    <ul class="indicator ">
-      <li 
-      :class="{active:i===index}"
-        v-for="(item,i) in banners"
+    <ul class="indicator">
+      <li
+        :class="{ active: i === index }"
+        v-for="(item, i) in banners"
         :key="i"
         @click="switchTo(i)"
       ></li>
@@ -38,7 +47,8 @@ export default {
       index: 1,
       banners: [],
       isLoading: "false",
-      containerHeight:0
+      containerHeight: 0,
+      switching: false,
     };
   },
   async created() {
@@ -46,16 +56,38 @@ export default {
   },
   mounted() {
     this.containerHeight = this.$refs.container.clientHeight;
+    window.addEventListener("resize", this.handleResize);
   },
-  computed:{
-    marginTop(){
-      return -this.index * this.containerHeight +'px'
-    }
+  destroyed() {
+    window.removeEventListener("resize", this.handleResize);
+  },
+  computed: {
+    marginTop() {
+      return -this.index * this.containerHeight + "px";
+    },
   },
   methods: {
     switchTo(i) {
-     
       this.index = i;
+    },
+    handleResize() {
+      this.containerHeight = this.$refs.container.clientHeight;
+    },
+    handleWheel(e) {
+      if (this.switching) {
+        return;
+      }
+      if (e.deltaY < -5 && this.index > 0) {
+        this.switching = true; //向上滚动
+        this.index--;
+      } else if (e.deltaY > 5 && this.index < this.banners.length - 1) {
+        // 向下滚动
+        this.switching = true;
+        this.index++;
+      }
+    },
+    handleTransitionEnd() {
+      this.switching = false;
     },
   },
 };
@@ -69,24 +101,30 @@ export default {
   height: 100%;
   position: relative;
   overflow: hidden;
-  background: @dark;
- 
+
+  //测试  测试
+  // width: 110%;
+  // height: 110%;
+  // overflow: visible;
+  // position: absolute;
+  // border: 3px solid #008c8c;
+  // margin: 100px auto ;
+
   ul {
     margin: 0;
     list-style: none;
     padding: 0;
-    
   }
 }
-  .carousel-container {
+.carousel-container {
+  width: 100%;
+  height: 100%;
+  transition: 500ms;
+  li {
     width: 100%;
     height: 100%;
-  transition: 500ms;
-    li {
-      width: 100%;
-      height: 100%;
-    }
   }
+}
 
 .icon {
   ////////
@@ -135,7 +173,7 @@ export default {
   left: auto;
   right: 0%;
   list-style: none;
-  li{
+  li {
     height: 5px;
     width: 5px;
     background: gray;
@@ -144,11 +182,9 @@ export default {
     margin-top: 10px;
     cursor: pointer;
 
-    &.active{
+    &.active {
       background: #fff;
     }
   }
 }
-
-
 </style>

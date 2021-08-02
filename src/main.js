@@ -44,3 +44,12 @@ new Vue({
   router,
   render: (h) => h(App),
 }).$mount("#app");
+
+import * as blogApi from './api/blog'
+blogApi.getBlogs(2,20,3).then(r=>{
+  console.log("博客:",r); 
+}) 
+
+// blogApi.getBlogTypes().then(r=>{
+//   console.log('博客分类',r);
+// })

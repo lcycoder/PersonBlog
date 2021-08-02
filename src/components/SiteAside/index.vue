@@ -1,6 +1,6 @@
 <template>
   <div class="site-aside-container">
-    <Avatar url="https://img2.baidu.com/it/u=2421505363,3507499484&fm=26&fmt=auto&gp=0.jpg" />
+    <!-- <Avatar url="https://img2.baidu.com/it/u=2421505363,3507499484&fm=26&fmt=auto&gp=0.jpg" /> -->
     <h1 class="title">lcy</h1>
     <Menu />
     <Contact />

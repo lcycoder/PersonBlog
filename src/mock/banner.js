@@ -8,7 +8,7 @@ Mock.mock("/api/banner", "get", {
       id: "1",
       midImg: "http://mdrs.yuanjin.tech/img/20201031141507.jpg",
       bigImg: "http://mdrs.yuanjin.tech/img/20201031141350.jpg",
-      title: "1",
+      title: "第一张",
       description: "11111111111",
     },
     {

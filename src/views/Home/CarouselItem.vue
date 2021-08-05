@@ -97,7 +97,6 @@ export default {
         width: this.$refs.image.clientWidth,
         height: this.$refs.image.clientHeight,
       };
-      console.log(this.containerSize.width);
     },
     handleMouseMove(e) {
       // 拿到鼠标的参数

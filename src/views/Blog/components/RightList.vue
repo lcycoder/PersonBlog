@@ -31,6 +31,10 @@ export default {
 </script>
 
 <style scoped lang='less' >
+.right-list-container{
+  width: 250px;
+  height: 100%;
+}
 ul{
     list-style: none;
 }
